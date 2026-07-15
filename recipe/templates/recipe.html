@@ -1,0 +1,865 @@
+{% extends "base.html" %} 
+{% block title %}Add Recipes{% endblock %} 
+{% block start %}
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Animate CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+
+<!-- Font Awesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Poppins, sans-serif;
+    background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #0f766e);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+  }
+
+  @keyframes gradientBG {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+
+  .glass-card h2,
+  .glass-card p,
+  .glass-card label {
+    color: #fff;
+  }
+
+  .form-control {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    color: #fff;
+    border-radius: 10px;
+  }
+
+  .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .form-control:focus {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    box-shadow: none;
+  }
+
+  .btn-save {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #7c3aed, #2563eb);
+    color: #fff;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .btn-save:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+  }
+
+  /* ===== TABLE CONTAINER - FULLY RESPONSIVE ===== */
+  .table-wrapper {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 15px;
+  }
+
+  /* ===== SCROLLABLE TABLE ON MOBILE ===== */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    margin: 0 -5px;
+    padding: 0 5px;
+  }
+
+  /* Scrollbar Styling */
+  .table-scroll::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .table-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+
+  .table-scroll::-webkit-scrollbar-thumb {
+    background: rgba(124, 58, 237, 0.5);
+    border-radius: 10px;
+  }
+
+  .table-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(124, 58, 237, 0.7);
+  }
+
+  /* ===== TABLE STYLES ===== */
+  .recipe-table {
+    width: 100%;
+    min-width: 700px; /* Ensures table doesn't break on mobile */
+    margin-bottom: 0;
+    color: white;
+    border-collapse: collapse;
+  }
+
+  .recipe-table thead th {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 14px 16px;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .recipe-table tbody td {
+    padding: 12px 16px;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    white-space: nowrap;
+  }
+
+  .recipe-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .recipe-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .recipe-img {
+    width: 55px;
+    height: 55px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .recipe-img:hover {
+    transform: scale(1.1);
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .btn-action {
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    color: white;
+  }
+
+  .btn-delete {
+    background: #dc3545;
+    color: white;
+  }
+
+  .btn-delete:hover {
+    background: #c82333;
+    color: white;
+  }
+
+  .btn-update {
+    background: #28a745;
+    color: white;
+  }
+
+  .btn-update:hover {
+    background: #218838;
+    color: white;
+  }
+
+  /* ===== SEARCH SECTION ===== */
+  .search-container {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    border-radius: 20px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+  }
+
+  .search-input {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    padding: 12px 20px;
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .search-input:focus {
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    box-shadow: none;
+    outline: none;
+  }
+
+  .search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .btn-search {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #7c3aed, #2563eb);
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+    white-space: nowrap;
+  }
+
+  .btn-search:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+  }
+
+  .btn-clear {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .btn-clear:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    text-decoration: none;
+  }
+
+  .search-result-count {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  /* ===== HOME BUTTON ===== */
+  .btn-home {
+    color: white;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 20px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+  }
+
+  .btn-home:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+  }
+
+  /* ===== RESPONSIVE BREAKPOINTS ===== */
+
+  /* Tablet & Small Laptops */
+  @media (max-width: 992px) {
+    .recipe-table thead th,
+    .recipe-table tbody td {
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+
+    .recipe-img {
+      width: 45px;
+      height: 45px;
+    }
+
+    .btn-action {
+      padding: 5px 12px;
+      font-size: 12px;
+    }
+
+    .recipe-table {
+      min-width: 650px;
+    }
+  }
+
+  /* Mobile Landscape & Small Tablets */
+  @media (max-width: 768px) {
+    .table-wrapper {
+      padding: 10px;
+      border-radius: 15px;
+    }
+
+    .recipe-table thead th,
+    .recipe-table tbody td {
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .recipe-table thead th {
+      font-size: 11px;
+      padding: 8px 10px;
+    }
+
+    .recipe-img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .btn-action {
+      padding: 4px 10px;
+      font-size: 11px;
+    }
+
+    .action-buttons {
+      gap: 5px;
+    }
+
+    .search-container {
+      padding: 15px 20px;
+    }
+
+    .search-input {
+      padding: 10px 15px;
+      font-size: 14px;
+    }
+
+    .btn-search,
+    .btn-clear {
+      padding: 10px 20px;
+      font-size: 13px;
+    }
+
+    .recipe-table {
+      min-width: 600px;
+    }
+  }
+
+  /* Mobile Portrait - Table scrolls horizontally */
+  @media (max-width: 576px) {
+    .table-wrapper {
+      padding: 8px;
+      border-radius: 12px;
+    }
+
+    /* Table scroll indicator */
+    .table-scroll::after {
+      content: "← Swipe to see more →";
+      display: block;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 11px;
+      padding: 8px 0 4px 0;
+      letter-spacing: 1px;
+      animation: blinkText 2s ease-in-out infinite;
+    }
+
+    @keyframes blinkText {
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .recipe-table thead th,
+    .recipe-table tbody td {
+      padding: 6px 8px;
+      font-size: 11px;
+    }
+
+    .recipe-table thead th {
+      font-size: 10px;
+      padding: 6px 8px;
+    }
+
+    .recipe-img {
+      width: 35px;
+      height: 35px;
+    }
+
+    .btn-action {
+      padding: 3px 8px;
+      font-size: 10px;
+    }
+
+    .btn-action i {
+      font-size: 10px;
+    }
+
+    .action-buttons {
+      gap: 4px;
+    }
+
+    .recipe-table {
+      min-width: 550px;
+    }
+
+    /* Search section mobile */
+    .search-container form {
+      flex-direction: column !important;
+      gap: 10px !important;
+    }
+
+    .search-container form .flex-grow-1 {
+      width: 100% !important;
+    }
+
+    .search-input {
+      width: 100% !important;
+      font-size: 14px;
+    }
+
+    .btn-search,
+    .btn-clear {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .search-result-count {
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* Form card mobile */
+    .glass-card {
+      padding: 20px !important;
+    }
+
+    .glass-card h2 {
+      font-size: 22px;
+    }
+
+    .btn-home {
+      font-size: 12px;
+      padding: 6px 15px;
+    }
+
+    .container {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+    }
+  }
+
+  /* Extra small devices */
+  @media (max-width: 400px) {
+    .table-wrapper {
+      padding: 5px;
+    }
+
+    .recipe-table thead th,
+    .recipe-table tbody td {
+      padding: 4px 6px;
+      font-size: 10px;
+    }
+
+    .recipe-table thead th {
+      font-size: 9px;
+      padding: 4px 6px;
+    }
+
+    .recipe-img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .btn-action {
+      padding: 2px 6px;
+      font-size: 9px;
+    }
+
+    .btn-action i {
+      font-size: 8px;
+    }
+
+    .recipe-table {
+      min-width: 480px;
+    }
+
+    .glass-card {
+      padding: 15px !important;
+    }
+
+    .glass-card h2 {
+      font-size: 18px;
+    }
+
+    .table-scroll::after {
+      font-size: 9px;
+      padding: 5px 0 2px 0;
+    }
+  }
+
+  /* Landscape mode on mobile - shows full table */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .recipe-table {
+      min-width: 700px;
+    }
+
+    .table-scroll::after {
+      display: none;
+    }
+
+    .recipe-table thead th,
+    .recipe-table tbody td {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .recipe-img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .btn-action {
+      padding: 4px 12px;
+      font-size: 11px;
+    }
+  }
+
+  /* Empty state styling */
+  .empty-state {
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .empty-state i {
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 15px;
+  }
+
+  .empty-state p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+  }
+
+  /* Mobile scroll hint animation */
+  .scroll-hint {
+    display: none;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 11px;
+    padding: 5px 0;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 576px) {
+    .scroll-hint {
+      display: block;
+      animation: blinkText 2s ease-in-out infinite;
+    }
+  }
+</style>
+
+<!-- Home Button -->
+<div class="container mt-3">
+  <a href="/" class="btn-home">
+    <i class="fas fa-arrow-left"></i> Home
+  </a>
+</div>
+
+<!-- Add Recipe Form -->
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+      <div class="glass-card p-4 p-md-5">
+        <div class="text-center mb-4">
+          <h2><i class="fas fa-utensils me-2"></i>Add Your Recipe</h2>
+          <p>Create something delicious.</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label class="mb-2"><i class="fas fa-cutlery me-1"></i> Recipe Name</label>
+            <input
+              type="text"
+              name="recipe_name"
+              class="form-control"
+              placeholder="Recipe Name"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="mb-2"><i class="fas fa-file-alt me-1"></i> Description</label>
+            <textarea
+              name="recipe_description"
+              class="form-control"
+              rows="5"
+              placeholder="Recipe Description"
+              required
+            ></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label class="mb-2"><i class="fas fa-image me-1"></i> Recipe Image</label>
+            <input
+              type="file"
+              name="recipe_img"
+              class="form-control"
+              accept="image/*"
+            />
+          </div>
+
+          <button type="submit" class="btn-save">
+            <i class="fas fa-save me-2"></i>Save Recipe
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search Section -->
+<div class="container">
+  <div class="search-container">
+    <form method="GET" action="" class="d-flex flex-wrap gap-3 align-items-center">
+      <div class="flex-grow-1">
+        <input
+          type="text"
+          name="search_re"
+          class="search-input w-100"
+          placeholder="🔍 Search for recipes..."
+          value="{{ search_query|default:'' }}"
+        />
+      </div>
+      <button type="submit" class="btn-search">
+        <i class="fas fa-search me-1"></i> Search
+      </button>
+      {% if search_query %}
+      <a href="{% url 'recipe-view' %}" class="btn-clear">
+        <i class="fas fa-times me-1"></i> Clear
+      </a>
+      {% endif %}
+    </form>
+    {% if search_query %}
+    <div class="search-result-count">
+      <i class="fas fa-list me-1"></i>
+      Found {{ recipes.count }} recipe{% if recipes.count != 1 %}s{% endif %}
+      for "{{ search_query }}"
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Recipes Table - Fully Responsive with Horizontal Scroll on Mobile -->
+<div class="container pb-5">
+  <div class="table-wrapper">
+    <!-- Scroll Hint for Mobile -->
+    <div class="scroll-hint">
+      <i class="fas fa-arrows-alt-h me-1"></i> Swipe to see more
+    </div>
+
+    <!-- Scrollable Table -->
+    <div class="table-scroll">
+      <table class="recipe-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Recipe Name</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for recipe in recipes %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+              {% if search_query %} 
+                {{ recipe.recipe_name|truncatechars:20 }} 
+              {% else %} 
+                {{ recipe.recipe_name|truncatechars:20 }} 
+              {% endif %}
+            </td>
+            <td>{{ recipe.recipe_description|truncatechars:30 }}</td>
+            <td>
+              {% if recipe.recipe_img %}
+              <img
+                src="{{ recipe.recipe_img.url }}"
+                class="recipe-img"
+                alt="{{ recipe.recipe_name }}"
+              />
+              {% else %}
+              <span class="text-muted" style="font-size:11px;">No Image</span>
+              {% endif %}
+            </td>
+            <td>
+              <div class="action-buttons">
+                <a
+                  href="/delete_recipe/{{recipe.id}}/"
+                  class="btn-action btn-delete delete-btn"
+                >
+                  <i class="fas fa-trash"></i> Delete
+                </a>
+
+                <a
+                  href="/update_recipe/{{recipe.id}}/"
+                  class="btn-action btn-update update-btn"
+                >
+                  <i class="fas fa-edit"></i> Update
+                </a>
+              </div>
+            </td>
+          </tr>
+
+          {% empty %}
+          <tr>
+            <td colspan="5" class="text-center">
+              <div class="empty-state">
+                <i class="fas fa-utensils"></i>
+                <p>
+                  {% if search_query %} 
+                    No recipes found for "{{ search_query }}" 
+                  {% else %} 
+                    No Recipes Found. Add your first recipe! 🍽️
+                  {% endif %}
+                </p>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% if messages %} 
+  {% for message in messages %}
+    <script>
+      Swal.fire({
+        title: "{{ message.tags|title }}!",
+        text: "{{ message }}",
+        icon: "{{ message.tags }}",
+        background: "#1e1b4b",
+        color: "#fff",
+        confirmButtonColor: "#7c3aed",
+        confirmButtonText: "OK 😍",
+      });
+    </script>
+  {% endfor %} 
+{% endif %}
+
+<script>
+  document.querySelectorAll(".delete-btn").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const url = this.href;
+
+      Swal.fire({
+        title: "Delete Recipe?",
+        text: "This recipe will be permanently deleted.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes Delete",
+        cancelButtonText: "Cancel",
+        background: "#1e1b4b",
+        color: "#fff",
+        confirmButtonColor: "#dc3545",
+        cancelButtonColor: "#3085d6",
+        showClass: {
+          popup: "animate__animated animate__zoomIn",
+        },
+        hideClass: {
+          popup: "animate__animated animate__zoomOut",
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = url;
+        }
+      });
+    });
+  });
+
+  document.querySelectorAll(".update-btn").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const url = this.href;
+
+      Swal.fire({
+        title: "Update Recipe?",
+        text: "Do you want to edit this recipe?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Update",
+        cancelButtonText: "Cancel",
+        background: "#1e1b4b",
+        color: "#fff",
+        confirmButtonColor: "#16a34a",
+        cancelButtonColor: "#6366f1",
+        showClass: {
+          popup: "animate__animated animate__zoomIn",
+        },
+        hideClass: {
+          popup: "animate__animated animate__zoomOut",
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = url;
+        }
+      });
+    });
+  });
+</script>
+
+{% endblock %}

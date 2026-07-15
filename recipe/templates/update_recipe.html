@@ -1,0 +1,338 @@
+{% extends "base.html" %} {% block title %}Add Recipes{% endblock %} {% block
+start %}
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Animate CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Poppins, sans-serif;
+    background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #0f766e);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+  }
+
+  @keyframes gradientBG {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+
+  .glass-card h2,
+  .glass-card p,
+  .glass-card label {
+    color: #fff;
+  }
+
+  .form-control {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    color: #fff;
+    border-radius: 10px;
+  }
+
+  .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .form-control:focus {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    box-shadow: none;
+  }
+
+  .btn-save {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #7c3aed, #2563eb);
+    color: #fff;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .btn-save:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+  }
+
+  .recipe-table {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .recipe-table table {
+    margin-bottom: 0;
+    color: white;
+  }
+
+  .recipe-table th {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .recipe-table td {
+    vertical-align: middle;
+  }
+
+  .recipe-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn-action {
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-delete {
+    background: #dc3545;
+    color: white;
+    border: none;
+  }
+
+  .btn-delete:hover {
+    background: #c82333;
+    color: white;
+  }
+
+  .btn-update {
+    background: #28a745;
+    color: white;
+    border: none;
+  }
+
+  .btn-update:hover {
+    background: #218838;
+    color: white;
+  }
+</style>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="glass-card p-5">
+        <div class="text-center mb-4">
+          <h2>Add Your Recipe</h2>
+          <p>Create something delicious.</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label class="mb-2">Recipe Name</label>
+            <input
+              type="text"
+              name="recipe_name"
+              class="form-control"
+              placeholder="Recipe Name"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="mb-2">Description</label>
+            <textarea
+              name="recipe_description"
+              class="form-control"
+              rows="5"
+              placeholder="Recipe Description"
+              required
+            ></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label class="mb-2">Recipe Image</label>
+            <input
+              type="file"
+              name="recipe_img"
+              class="form-control"
+              accept="image/*"
+            />
+          </div>
+
+          <button type="submit" class="btn-save">Save Recipe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container pb-5">
+  <div class="recipe-table p-3 table-responsive">
+    <table class="table table-borderless align-middle">
+      <thead>
+        <tr>
+          <th>SR No</th>
+          <th>Recipe Name</th>
+          <th>Description</th>
+          <th>Image</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for recipe in recipes %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ recipe.recipe_name }}</td>
+          <td>{{ recipe.recipe_description|truncatechars:50 }}</td>
+          <td>
+            {% if recipe.recipe_img %}
+            <img
+              src="{{ recipe.recipe_img.url }}"
+              class="recipe-img"
+              alt="{{ recipe.recipe_name }}"
+            />
+            {% else %}
+            <span class="text-muted">No Image</span>
+            {% endif %}
+          </td>
+          <td>
+            <div class="action-buttons">
+              <a
+                href="/delete_recipe/{{recipe.id}}/"
+                class="btn-action btn-delete delete-btn"
+              >
+                Delete
+              </a>
+
+              <a
+                href="/update_recipe/{{recipe.id}}/"
+                class="btn-action btn-update update-btn"
+              >
+                Update
+              </a>
+            </div>
+          </td>
+        </tr>
+
+        {% empty %}
+        <tr>
+          <td colspan="5" class="text-center text-white">No Recipes Found</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% if messages %} {% for message in messages %}
+<script>
+  Swal.fire({
+    title: "{{ message.tags|title }}!",
+    text: "{{ message }}",
+    icon: "{{ message.tags }}",
+    background: "#1e1b4b",
+    color: "#fff",
+    confirmButtonColor: "#7c3aed",
+    confirmButtonText: "OK 😍",
+  });
+</script>
+{% endfor %} {% endif %}
+
+<script>
+  document.querySelectorAll(".delete-btn").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const url = this.href;
+
+      Swal.fire({
+        title: "Delete Recipe?",
+        text: "This recipe will be permanently deleted.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes Delete",
+        cancelButtonText: "Cancel",
+        background: "#1e1b4b",
+        color: "#fff",
+        confirmButtonColor: "#dc3545",
+        cancelButtonColor: "#3085d6",
+        showClass: {
+          popup: "animate__animated animate__zoomIn",
+        },
+        hideClass: {
+          popup: "animate__animated animate__zoomOut",
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = url;
+        }
+      });
+    });
+  });
+
+  document.querySelectorAll(".update-btn").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const url = this.href;
+
+      Swal.fire({
+        title: "Update Recipe?",
+        text: "Do you want to edit this recipe?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Update",
+        cancelButtonText: "Cancel",
+        background: "#1e1b4b",
+        color: "#fff",
+        confirmButtonColor: "#16a34a",
+        cancelButtonColor: "#6366f1",
+        showClass: {
+          popup: "animate__animated animate__zoomIn",
+        },
+        hideClass: {
+          popup: "animate__animated animate__zoomOut",
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = url;
+        }
+      });
+    });
+  });
+</script>
+
+{% endblock %}
