@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}
+  Login
+{% endblock %}
+
+{% block extra_css %}
+  <style>
+    .btn-login-page {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #7c3aed, #2563eb);
+      color: #fff;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    
+    .btn-login-page:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+    }
+    
+    .signup-link {
+      color: #c4b5fd;
+      text-decoration: none;
+    }
+    
+    .signup-link:hover {
+      color: #fff;
+    }
+  </style>
+{% endblock %}
+
+{% block start %}
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="glass-card p-5">
+          <div class="text-center mb-4">
+            <h2><i class="fas fa-sign-in-alt me-2"></i>Welcome Back</h2>
+            <p>Login to your account.</p>
+          </div>
+
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label class="mb-2"><i class="fas fa-user me-1"></i>Username</label>
+              <input type="text" name="username" class="form-control" placeholder="Enter Username" required />
+            </div>
+
+            <div class="mb-4">
+              <label class="mb-2"><i class="fas fa-lock me-1"></i>Password</label>
+              <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" required />
+            </div>
+
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="checkbox" id="showPassword" />
+              <label class="form-check-label text-white" for="showPassword">Show Password</label>
+            </div>
+
+            <button type="submit" class="btn-login-page"><i class="fas fa-sign-in-alt me-2"></i>Login</button>
+          </form>
+
+          <div class="text-center mt-4">
+            <p class="text-white mb-0">
+              Don't have an account?
+              <a href="/signup_page/" class="signup-link">Create Account</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('showPassword')?.addEventListener('change', function () {
+      const password = document.getElementById('password')
+      password.type = this.checked ? 'text' : 'password'
+    })
+  </script>
+{% endblock %}
