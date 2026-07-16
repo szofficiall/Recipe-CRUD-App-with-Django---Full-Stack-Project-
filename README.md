@@ -1,142 +1,538 @@
 # 🍽️ RecipeBook - Django Recipe Management System
 
-[![Django](https://img.shields.io/badge/Django-5.0-green.svg)](https://www.djangoproject.com/)
-[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple.svg)](https://getbootstrap.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
 
-> A fully responsive web application built with Django that allows users to **Create, Read, Update, and Delete** recipes with a beautiful modern UI. Perfect for food lovers who want to organize their favorite recipes in one place.
+![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
+![Django](https://img.shields.io/badge/Django-5.0-green?style=for-the-badge&logo=django)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple?style=for-the-badge&logo=bootstrap)
+![SQLite](https://img.shields.io/badge/SQLite-Database-blue?style=for-the-badge&logo=sqlite)
+![License](https://img.shields.io/badge/License-Custom-red?style=for-the-badge)
 
----
-
-## 📑 **Table of Contents**
-
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Installation Steps](#-installation-steps)
-- [Project Structure](#-project-structure)
-- [Database Setup](#-database-setup)
-- [Usage Guide](#-usage-guide)
-- [API Endpoints](#-api-endpoints)
-- [Screenshots](#-screenshots)
-- [Deployment](#-deployment)
-- [Contributing](#-contributing)
-- [License](#-license)
+</p>
 
 ---
 
-## ✨ **Features**
+# 📖 About Project
 
-### 🔐 **Authentication System**
-- ✅ User Registration (Sign Up)
-- ✅ User Login
-- ✅ User Logout
-- ✅ Password Protection
-- ✅ Session Management
-- ✅ Welcome Messages
+RecipeBook is a modern Django-based Recipe Management System where authenticated users can manage their favorite recipes.
 
-### 📝 **CRUD Operations**
-- ✅ **Create** - Add new recipes with name, description, and image
-- ✅ **Read** - View all recipes in a beautiful table
-- ✅ **Update** - Edit existing recipes
-- ✅ **Delete** - Remove recipes with confirmation
+The application provides complete CRUD functionality with a beautiful responsive interface.
 
-### 🔍 **Search Functionality**
-- ✅ Search recipes by name
-- ✅ Search recipes by description
-- ✅ Real-time search results
-- ✅ Clear search option
+Users can:
 
-### 🎨 **Modern UI/UX**
-- ✅ Glass-morphism design
-- ✅ Animated gradient backgrounds
-- ✅ Responsive layout (Mobile/Tablet/Desktop)
-- ✅ SweetAlert2 confirmations
-- ✅ Toast notifications
-- ✅ Font Awesome icons
-- ✅ Google Fonts (Poppins)
+- Create Recipes
+- Edit Recipes
+- Delete Recipes
+- Upload Recipe Images
+- Search Recipes
+- Login & Logout Securely
 
-### 📱 **Responsive Design**
-- ✅ Mobile-first approach
-- ✅ Side-by-side layout on desktop
-- ✅ Stack layout on mobile
-- ✅ Touch-friendly buttons
-- ✅ Smooth animations
+This project is designed for beginners, students, and developers learning Django CRUD with Authentication.
 
 ---
 
-## 🛠️ **Tech Stack**
+# ✨ Features
 
-### Backend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Django | 5.0+ | Web Framework |
-| SQLite3 | - | Development Database |
-| Django ORM | - | Object-Relational Mapping |
-| Django Auth | - | User Management |
+## 🔐 Authentication
 
-### Frontend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| HTML5 | - | Markup Language |
-| CSS3 | - | Styling |
-| Bootstrap | 5.3 | CSS Framework |
-| JavaScript | ES6 | Interactive Elements |
-| SweetAlert2 | 11+ | Beautiful Alerts |
-| Font Awesome | 6.5 | Icons |
-| Google Fonts | - | Typography (Poppins) |
-
-### Tools
-| Tool | Purpose |
-|------|---------|
-| Git | Version Control |
-| Pip | Package Manager |
-| Virtual Environment | Isolated Environment |
-| VS Code | Code Editor |
+- User Registration
+- Login
+- Logout
+- Session Authentication
+- Secure Password Hashing
+- Django Authentication System
+- Protected Routes
+- Flash Messages
 
 ---
 
-## 🚀 **Installation Steps**
+## 🍲 Recipe Management
 
-### Step 1: **Prerequisites**
+- Add New Recipe
+- Edit Existing Recipe
+- Delete Recipe
+- Upload Recipe Image
+- Recipe Description
+- Recipe Name
+- View All Recipes
 
-Make sure you have the following installed:
+---
+
+## 🔍 Search System
+
+- Search by Recipe Name
+- Search by Description
+- Instant Search Results
+- Responsive Search Box
+
+---
+
+## 🎨 Beautiful UI
+
+- Glassmorphism Cards
+- Bootstrap 5 Layout
+- Animated Background
+- Responsive Navbar
+- SweetAlert2
+- Toast Notifications
+- Hover Effects
+- FontAwesome Icons
+- Google Fonts
+
+---
+
+## 📱 Responsive Design
+
+Supports
+
+- Desktop
+- Laptop
+- Tablet
+- Mobile
+
+---
+
+# 🛠 Tech Stack
+
+## Backend
+
+- Django 5
+- Python 3.10+
+- SQLite3
+- Django ORM
+
+## Frontend
+
+- HTML5
+- CSS3
+- Bootstrap 5.3
+- JavaScript
+- SweetAlert2
+- Font Awesome
+
+## Tools
+
+- Git
+- GitHub
+- VS Code
+- Virtual Environment
+
+---
+
+# 📂 Project Structure
+
+```
+recipebook/
+│
+├── media/
+│
+├── public/static/
+│   ├── images/
+│
+├── templates/
+│   ├── login.html
+│   ├── register.html
+│   ├── recipes.html
+│   ├── update.html
+│
+├── recipebook/
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│
+├── recipes/
+│   ├── models.py
+│   ├── views.py
+│   ├── admin.py
+│   ├── forms.py
+│   ├── urls.py
+│
+├── db.sqlite3
+├── manage.py
+├── requirements.txt
+└── README.md
+```
+
+---
+
+# 🚀 Installation Guide
+
+## 1 Clone Repository
 
 ```bash
-# Check Python version
-python --version
-# Should be Python 3.10 or higher
-
-# Check pip version
-pip --version
-# Should be pip 23.0 or higher
-
-### Step 2: Clone the Repository
-# Clone the project
 git clone https://github.com/szofficiall/recipebook.git
 
-### Step 3: Create Virtual Environment
-# Navigate to project directory
 cd recipebook
+```
 
-### Step 4: Install Dependencies
-# For Windows
+---
+
+## 2 Create Virtual Environment
+
+### Windows
+
+```bash
 python -m venv venv
+
 venv\Scripts\activate
+```
 
-# For Mac/Linux
+### Linux / Mac
+
+```bash
 python3 -m venv venv
-source venv/bin/activate
 
-# For Linux (alternative)
-virtualenv venv
 source venv/bin/activate
+```
 
+---
+
+## 3 Install Requirements
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 4 Required Packages
+
+```txt
 Django==5.0.6
-Pillow==10.3.0
-python-dotenv==1.0.1
-django-crispy-forms==2.1
-crispy-bootstrap5==0.7
 
-### Install all dependencies:
-pip install -r requirements.txt  
+Pillow==10.3.0
+
+python-dotenv==1.0.1
+
+django-crispy-forms==2.1
+
+crispy-bootstrap5==0.7
+```
+
+---
+
+## 5 Apply Migrations
+
+```bash
+python manage.py makemigrations
+
+python manage.py migrate
+```
+
+---
+
+## 6 Create Superuser
+
+```bash
+python manage.py createsuperuser
+```
+
+---
+
+## 7 Run Server
+
+```bash
+python manage.py runserver
+```
+
+Open
+
+```
+http://127.0.0.1:8000/
+```
+
+---
+
+# 💾 Database
+
+Default Database
+
+```
+SQLite3
+```
+
+Can easily migrate to
+
+- PostgreSQL
+- MySQL
+- MariaDB
+
+---
+
+# 🔑 Default Flow
+
+Register
+
+↓
+
+Login
+
+↓
+
+Add Recipe
+
+↓
+
+Edit Recipe
+
+↓
+
+Delete Recipe
+
+↓
+
+Logout
+
+---
+
+# 📸 Screenshots
+
+Create a folder
+
+```
+screenshots/
+```
+
+Inside it add these images.
+
+```
+screenshots/
+
+addrecipes.png
+
+dashboard-desktop.JPG
+
+delete-confirmiration.png
+
+home-page.png
+
+login-page.JPG
+
+mobile-dashboard.png
+
+search-recipe.png
+
+mobile-view.png
+
+signup-page.png
+```
+
+Then display them.
+
+---
+
+## 🏠 Home Page
+
+```
+![Home](screenshots/home-page.png)
+```
+
+---
+
+## 🔑 Login Page
+
+```
+![Login](screenshots/login-page.JPG)
+```
+
+---
+
+## 📝 Registration Page
+
+```
+![Register](screenshots/signup-page.png)
+```
+
+---
+
+## 📋 Recipe Dashboard
+
+```
+![Dashboard](screenshots/dashboard-desktop.JPG)
+```
+
+---
+
+## ➕ Add Recipe
+
+```
+![Add Recipe](screenshots/addrecipes.png)
+```
+
+---
+
+## 🔍 Search Recipe
+
+```
+![Search](screenshots/search-recipe.png)
+```
+
+---
+
+## ❌ Delete Confirmation
+
+```
+![Delete](screenshots/delete-confirmiration.png)
+```
+
+---
+
+## 📱 Mobile Responsive View
+
+```
+![Mobile](screenshots/mobile-dashboard.png)
+```
+
+---
+
+---
+
+# 🎯 Future Improvements
+
+- Email Verification
+- Forgot Password
+- Recipe Categories
+- Favorites
+- User Profiles
+- Comments
+- Ratings
+- Dark Mode
+- REST API
+- Docker Support
+- AWS Deployment
+- PostgreSQL Support
+
+---
+
+# 🔒 Security
+
+- CSRF Protection
+- Authentication Required
+- Session Security
+- Password Hashing
+- Django Security Middleware
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork Repository
+
+2. Create Branch
+
+```
+git checkout -b feature-name
+```
+
+3. Commit Changes
+
+```
+git commit -m "Added New Feature"
+```
+
+4. Push
+
+```
+git push origin feature-name
+```
+
+5. Open Pull Request
+
+---
+
+# 🧪 Testing
+
+Run Tests
+
+```bash
+python manage.py test
+```
+
+---
+
+# 🌍 Deployment
+
+You can deploy on
+
+- PythonAnywhere
+- Render
+- Railway
+- Heroku
+- VPS
+- DigitalOcean
+
+---
+
+# 📄 License
+
+## Custom License
+
+Copyright © 2026
+
+**Muhammad Saad Zafar**
+
+This project is created for educational and portfolio purposes.
+
+### Restrictions
+
+❌ You may NOT:
+
+- Claim this project as your own.
+- Remove the original author credit.
+- Sell this project.
+- Upload modified versions without giving credit.
+- Copy the source code for commercial purposes without written permission.
+
+✅ You MAY:
+
+- Learn from the source code.
+- Use it for educational purposes.
+- Fork the repository.
+- Improve it with proper attribution.
+- Share with author credit.
+
+If you wish to use this project commercially, contact the author first.
+
+---
+
+# 👨‍💻 Author
+
+## Sultan Zaib
+
+Software Engineer
+
+GitHub
+
+https://github.com/szofficiall
+
+---
+
+# ⭐ Support
+
+If you like this project
+
+⭐ Star the Repository
+
+🍴 Fork the Repository
+
+💙 Share with Friends
+
+---
+
+# 🙏 Acknowledgements
+
+- Django Team
+- Bootstrap Team
+- Font Awesome
+- SweetAlert2
+- Python Community
+
+---
+
+<p align="center">
+
+Made with ❤️ by <b>Sultan Zaib</b>
+
+</p>
