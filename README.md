@@ -420,7 +420,7 @@ You can deploy on
 
 Copyright © 2026
 
-**Muhammad Saad Zafar**
+**Sultan Zaib**
 
 This project is created for educational and portfolio purposes.
 
