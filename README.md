@@ -61,7 +61,6 @@ This project is designed for beginners, students, and developers learning Django
 ## 🔍 Search System
 
 - Search by Recipe Name
-- Search by Description
 - Instant Search Results
 - Responsive Search Box
 
@@ -198,7 +197,7 @@ pip install -r requirements.txt
 ## 4 Required Packages
 
 ```txt
-Django==5.0.6
+Django==6.0.7
 
 Pillow==10.3.0
 
@@ -323,66 +322,49 @@ Then display them.
 
 ## 🏠 Home Page
 
-```
-![Home](screenshots/home-page.png)
-```
+![Home Page](./screenshots/home-page.png)
 
 ---
 
 ## 🔑 Login Page
 
-```
-![Login](screenshots/login-page.JPG)
-```
+![Login Page](./screenshots/login-page.JPG)
 
 ---
 
 ## 📝 Registration Page
 
-```
-![Register](screenshots/signup-page.png)
-```
+![Registration Page](./screenshots/signup-page.JPG)
 
 ---
 
-## 📋 Recipe Dashboard
+## 📋 Dashboard
 
-```
-![Dashboard](screenshots/dashboard-desktop.JPG)
-```
+![Dashboard](./screenshots/dashboard-desktop.JPG)
 
 ---
 
 ## ➕ Add Recipe
 
-```
-![Add Recipe](screenshots/addrecipes.png)
-```
+![Add Recipe](./screenshots/addrecipes.png)
 
 ---
 
 ## 🔍 Search Recipe
 
-```
-![Search](screenshots/search-recipe.png)
-```
+![Search Recipe](./screenshots/search-recipe.png)
 
 ---
 
 ## ❌ Delete Confirmation
 
-```
-![Delete](screenshots/delete-confirmiration.png)
-```
+![Delete Confirmation](./screenshots/delete-confirmiration.png)
 
 ---
 
-## 📱 Mobile Responsive View
+## 📱 Mobile Dashboard
 
-```
-![Mobile](screenshots/mobile-dashboard.png)
-```
-
+![Mobile Dashboard](./screenshots/mobile-dashboard.png)
 ---
 
 ---
@@ -497,15 +479,15 @@ If you wish to use this project commercially, contact the author first.
 
 ---
 
-# 👨‍💻 Author
+# 👨‍💻 Developer
 
 ## Sultan Zaib
 
-Software Engineer
+**Full Stack Developer | Software Engineer**
 
-GitHub
 
-https://github.com/szofficiall
+🌐 GitHub: https://github.com/szofficiall
+
 
 ---
 
