@@ -159,9 +159,9 @@ recipebook/
 ## 1 Clone Repository
 
 ```bash
-git clone https://github.com/szofficiall/recipebook.git
+https://github.com/szofficiall/Recipe-CRUD-App-with-Django---Full-Stack-Project-.git
 
-cd recipebook
+cd Recipe-CRUD-App-with-Django---Full-Stack-Project-
 ```
 
 ---
