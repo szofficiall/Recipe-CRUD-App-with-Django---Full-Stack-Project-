@@ -286,39 +286,6 @@ Logout
 
 # 📸 Screenshots
 
-Create a folder
-
-```
-screenshots/
-```
-
-Inside it add these images.
-
-```
-screenshots/
-
-addrecipes.png
-
-dashboard-desktop.JPG
-
-delete-confirmiration.png
-
-home-page.png
-
-login-page.JPG
-
-mobile-dashboard.png
-
-search-recipe.png
-
-mobile-view.png
-
-signup-page.png
-```
-
-Then display them.
-
----
 
 ## 🏠 Home Page
 
