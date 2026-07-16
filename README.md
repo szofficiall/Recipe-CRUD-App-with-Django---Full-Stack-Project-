@@ -7,20 +7,6 @@
 
 A fully responsive web application built with Django that allows users to **Create, Read, Update, and Delete** recipes with a beautiful modern UI. Perfect for food lovers who want to organize their favorite recipes in one place.
 
----
-
-## 📸 **Screenshots**
-
-### 🏠 **Home Page**
-![Home Page](https://via.placeholder.com/800x400/1e1b4b/ffffff?text=RecipeBook+Home+Page)
-
-### 🔐 **Login Page**
-![Login Page](https://via.placeholder.com/800x400/1e1b4b/ffffff?text=Login+Page)
-
-### 📝 **Dashboard - Add & View Recipes**
-![Dashboard](https://via.placeholder.com/800x400/1e1b4b/ffffff?text=Dashboard+-+Add+%26+View+Recipes)
-
----
 
 ## ✨ **Features**
 
