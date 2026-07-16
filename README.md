@@ -48,49 +48,6 @@ A fully responsive web application built with Django that allows users to **Crea
 
 ---
 
-## 🏗️ **Project Structure**
-recipe_project/
-│
-├── manage.py
-│
-├── recipe_project/ # Main project folder
-│ ├── init.py
-│ ├── settings.py # Project settings
-│ ├── urls.py # Main URLs
-│ └── wsgi.py
-│
-├── recipes/ # Main app folder
-│ ├── init.py
-│ ├── admin.py # Admin panel config
-│ ├── apps.py # App config
-│ ├── models.py # Database models
-│ ├── views.py # Views (logic)
-│ ├── urls.py # App URLs
-│ ├── forms.py # Django forms
-│ │
-│ ├── templates/ # HTML templates
-│ │ └── recipes/
-│ │ ├── base.html # Base template
-│ │ ├── home.html # Home page
-│ │ ├── login.html # Login page
-│ │ ├── signup.html # Signup page
-│ │ ├── recipe_list.html # Dashboard
-│ │ └── recipe_form.html # Add/Update form
-│ │
-│ └── migrations/ # Database migrations
-│
-├── media/ # User uploaded images
-│ └── recipe_images/
-│
-├── static/ # Static files
-│ ├── css/
-│ └── js/
-│
-├── requirements.txt # Python dependencies
-├── .gitignore # Git ignore file
-└── README.md # This file
----
-
 ## 🛠️ **Tech Stack**
 
 ### Backend
